@@ -88,7 +88,18 @@
       if (!session) {
         alert("参加枠を選択してください。");
         return;
-      }
+    }
+
+    // photo party 未選択チェック
+    if ((session === "1部のみ" || session === "通し参加") && photo1 === "") {
+      alert("photo partyへ参加するかどうかを選択してください。");
+      return;
+    }
+
+    if ((session === "2部のみ" || session === "通し参加") && photo2 === "") {
+      alert("photo partyへ参加するかどうかを選択してください。");
+      return;
+    }
 
       let text = `予約内容:\n`;
       let totalAmount = 0;
