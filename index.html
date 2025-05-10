@@ -1,0 +1,20 @@
+).value;
+const photo1 = document.getElementById("photo1").value;
+const photo2 = document.getElementById("photo2").value;
+
+let text = `予約内容:\n・${session}\n`;
+
+if (session !== "2部のみ") {
+text += `・1部photo party: ${photo1}\n`;
+}
+if (session !== "1部のみ") {
+text += `・2部photo party: ${photo2}\n`;
+}
+
+text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
+document.getElementById("result").innerText = text;
+}
+</script>
+</body>
+</html>
+~
