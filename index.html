@@ -1,31 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>予約内容生成</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>予約内容生成ページ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    label, select, button, p {
+      margin-top: 1rem;
+      display: block;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-  <h1>参加内容を選択してください</h1>
+  <h1>🎂 Ayaha Birthday Event 予約内容生成</h1>
 
   <label>
+    <strong>参加枠を選択:</strong>
     <select id="session">
-      <option>1部のみ</option>
-      <option>2部のみ</option>
-      <option>通し参加</option>
+      <option value="1部のみ">1部のみ</option>
+      <option value="2部のみ">2部のみ</option>
+      <option value="通し参加">通し参加</option>
     </select>
   </label>
 
-  <p>1部photo party参加？</p>
-  <select id="photo1">
-    <option>参加する</option>
-    <option>参加しない</option>
-  </select>
+  <label>
+    <strong>1部 photo party 参加:</strong>
+    <select id="photo1">
+      <option value="参加する">参加する</option>
+      <option value="参加しない">参加しない</option>
+    </select>
+  </label>
 
-  <p>2部photo party参加？</p>
-  <select id="photo2">
-    <option>参加する</option>
-    <option>参加しない</option>
-  </select>
+  <label>
+    <strong>2部 photo party 参加:</strong>
+    <select id="photo2">
+      <option value="参加する">参加する</option>
+      <option value="参加しない">参加しない</option>
+    </select>
+  </label>
 
   <button onclick="generateText()">予約内容を作成</button>
 
@@ -39,10 +62,10 @@
 
       let text = `予約内容:\n・${session}\n`;
       if (session !== "2部のみ") {
-        text += `・1部photo party: ${photo1}\n`;
+        text += `・1部 photo party: ${photo1}\n`;
       }
       if (session !== "1部のみ") {
-        text += `・2部photo party: ${photo2}\n`;
+        text += `・2部 photo party: ${photo2}\n`;
       }
       text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
 
