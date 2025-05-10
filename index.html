@@ -100,7 +100,7 @@
           text += `・photo party: 参加する\n`;
           text += `・プランB\n`;
           totalAmount += 3000;  // 追加金額
-        }else if (photo1 === "参加しない") {
+        }else{
           text += `・tea partyのみ\n`;
       	  text += `・プランA\n`;
     }
@@ -111,7 +111,7 @@
           text += `・2部 photo party: 参加する\n`;
           text += `・プランD\n`;
           totalAmount += 3000;  // 追加金額
-        }else if (photo2 === "参加しない") {
+        }else{
           text += `・tea partyのみ\n`;
           text += `・プランC\n`;
     }
@@ -126,19 +126,17 @@
             text += `・2部 photo party: 参加する\n`;
             text += `・プランH\n`;
             totalAmount += 3000;  // 追加金額
-        }else if (photo2 === "参加しない") {
+        }else{
           text += `・2部 tea partyのみ\n`;
           text += `・プランF\n`;
     }
-}else if (photo1 === "参加しない") {
+}else{
           text += `・1部 tea partyのみ\n`;
-          totalAmount += 3000;  // 追加金額
-
-          if (photo2 === "参加する") {
+    if (photo2 === "参加する") {
             text += `・2部 photo party: 参加する\n`;
             text += `・プランG\n`;
             totalAmount += 3000;  // 追加金額
-        }else if (photo2 === "参加しない") {
+        }else{
           text += `・2部 tea partyのみ\n`;
           text += `・プランE\n`;
 
