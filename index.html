@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>予約内容生成ページ</title>
   <style>
     body {
@@ -11,14 +11,17 @@
       max-width: 600px;
       margin: auto;
     }
-    label, select, button, p {
-      margin-top: 1rem;
+    label, select, button {
       display: block;
+      margin-top: 1rem;
     }
     pre {
       background: #f5f5f5;
       padding: 1rem;
       white-space: pre-wrap;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -27,24 +30,27 @@
 
   <label>
     <strong>参加枠を選択:</strong>
-    <select id="session">
+    <select id="session" onchange="togglePhotoOptions()">
+      <option value="">＜選択してください＞</option>
       <option value="1部のみ">1部のみ</option>
       <option value="2部のみ">2部のみ</option>
       <option value="通し参加">通し参加</option>
     </select>
   </label>
 
-  <label>
+  <label id="photo1Label" class="hidden">
     <strong>1部 photo party 参加:</strong>
     <select id="photo1">
+      <option value="">＜選択してください＞</option>
       <option value="参加する">参加する</option>
       <option value="参加しない">参加しない</option>
     </select>
   </label>
 
-  <label>
+  <label id="photo2Label" class="hidden">
     <strong>2部 photo party 参加:</strong>
     <select id="photo2">
+      <option value="">＜選択してください＞</option>
       <option value="参加する">参加する</option>
       <option value="参加しない">参加しない</option>
     </select>
@@ -55,18 +61,66 @@
   <pre id="result"></pre>
 
   <script>
+    function togglePhotoOptions() {
+      const session = document.getElementById("session").value;
+      const photo1Label = document.getElementById("photo1Label");
+      const photo2Label = document.getElementById("photo2Label");
+
+      // 初期状態では非表示にする
+      photo1Label.classList.add("hidden");
+      photo2Label.classList.add("hidden");
+
+      if (session === "1部のみ") {
+        photo1Label.classList.remove("hidden");
+      } else if (session === "2部のみ") {
+        photo2Label.classList.remove("hidden");
+      } else if (session === "通し参加") {
+        photo1Label.classList.remove("hidden");
+        photo2Label.classList.remove("hidden");
+      }
+    }
+
     function generateText() {
       const session = document.getElementById("session").value;
       const photo1 = document.getElementById("photo1").value;
       const photo2 = document.getElementById("photo2").value;
 
+      if (!session) {
+        alert("参加枠を選択してください。");
+        return;
+      }
+
       let text = `予約内容:\n・${session}\n`;
-      if (session !== "2部のみ") {
-        text += `・1部 photo party: ${photo1}\n`;
+      let totalAmount = 0;
+
+      if (session === "1部のみ") {
+        text += `・1部のみ参加\n`;
+        totalAmount += 5000;
+        if (photo1 === "参加する") {
+          text += `・1部 photo party: 参加する\n`;
+          totalAmount += 3000;  // 追加金額
+        }
+      } else if (session === "2部のみ") {
+        text += `・2部のみ参加\n`;
+        totalAmount += 5000;
+        if (photo2 === "参加する") {
+          text += `・2部 photo party: 参加する\n`;
+          totalAmount += 3000;  // 追加金額
+        }
+      } else if (session === "通し参加") {
+        text += `・通し参加\n`;
+        totalAmount += 10000;  // 通し参加の場合の基本料金
+        if (photo1 === "参加する") {
+          text += `・1部 photo party: 参加する\n`;
+          totalAmount += 3000;  // 追加金額
+        }
+        if (photo2 === "参加する") {
+          text += `・2部 photo party: 参加する\n`;
+          totalAmount += 3000;  // 追加金額
+        }
       }
-      if (session !== "1部のみ") {
-        text += `・2部 photo party: ${photo2}\n`;
-      }
+
+      text += `\n合計金額: ¥${totalAmount}\n`;
       text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
 
       document.getElementById("result").innerText = text;
