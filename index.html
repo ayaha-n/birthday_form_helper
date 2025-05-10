@@ -1,20 +1,53 @@
-).value;
-const photo1 = document.getElementById("photo1").value;
-const photo2 = document.getElementById("photo2").value;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>予約内容生成</title>
+</head>
+<body>
+  <h1>参加内容を選択してください</h1>
 
-let text = `予約内容:\n・${session}\n`;
+  <label>
+    <select id="session">
+      <option>1部のみ</option>
+      <option>2部のみ</option>
+      <option>通し参加</option>
+    </select>
+  </label>
 
-if (session !== "2部のみ") {
-text += `・1部photo party: ${photo1}\n`;
-}
-if (session !== "1部のみ") {
-text += `・2部photo party: ${photo2}\n`;
-}
+  <p>1部photo party参加？</p>
+  <select id="photo1">
+    <option>参加する</option>
+    <option>参加しない</option>
+  </select>
 
-text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
-document.getElementById("result").innerText = text;
-}
-</script>
+  <p>2部photo party参加？</p>
+  <select id="photo2">
+    <option>参加する</option>
+    <option>参加しない</option>
+  </select>
+
+  <button onclick="generateText()">予約内容を作成</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    function generateText() {
+      const session = document.getElementById("session").value;
+      const photo1 = document.getElementById("photo1").value;
+      const photo2 = document.getElementById("photo2").value;
+
+      let text = `予約内容:\n・${session}\n`;
+      if (session !== "2部のみ") {
+        text += `・1部photo party: ${photo1}\n`;
+      }
+      if (session !== "1部のみ") {
+        text += `・2部photo party: ${photo2}\n`;
+      }
+      text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
+
+      document.getElementById("result").innerText = text;
+    }
+  </script>
 </body>
 </html>
-~
