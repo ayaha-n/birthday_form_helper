@@ -26,7 +26,7 @@
   </style>
 </head>
 <body>
-  <h1>🎂 Ayaha Birthday Event 予約内容生成</h1>
+  <h1>🎂 Ayaha Birthday Party 予約内容生成</h1>
 
   <label>
     <strong>参加枠を選択:</strong>
@@ -90,36 +90,61 @@
         return;
       }
 
-      let text = `予約内容:\n・${session}\n`;
+      let text = `予約内容:\n`;
       let totalAmount = 0;
 
       if (session === "1部のみ") {
         text += `・1部のみ参加\n`;
         totalAmount += 5000;
         if (photo1 === "参加する") {
-          text += `・1部 photo party: 参加する\n`;
+          text += `・photo party: 参加する\n`;
+          text += `・プランB\n`;
           totalAmount += 3000;  // 追加金額
-        }
-      } else if (session === "2部のみ") {
+        }else if (photo1 === "参加しない") {
+          text += `・tea partyのみ\n`;
+      	  text += `・プランA\n`;
+    }
+    }else if (session === "2部のみ") {
         text += `・2部のみ参加\n`;
         totalAmount += 5000;
         if (photo2 === "参加する") {
           text += `・2部 photo party: 参加する\n`;
+          text += `・プランD\n`;
           totalAmount += 3000;  // 追加金額
-        }
+        }else if (photo2 === "参加しない") {
+          text += `・tea partyのみ\n`;
+          text += `・プランC\n`;
+    }
       } else if (session === "通し参加") {
         text += `・通し参加\n`;
         totalAmount += 10000;  // 通し参加の場合の基本料金
         if (photo1 === "参加する") {
           text += `・1部 photo party: 参加する\n`;
           totalAmount += 3000;  // 追加金額
-        }
-        if (photo2 === "参加する") {
-          text += `・2部 photo party: 参加する\n`;
+ 
+          if (photo2 === "参加する") {
+            text += `・2部 photo party: 参加する\n`;
+            text += `・プランH\n`;
+            totalAmount += 3000;  // 追加金額
+        }else if (photo2 === "参加しない") {
+          text += `・2部 tea partyのみ\n`;
+          text += `・プランF\n`;
+    }
+}else if (photo1 === "参加しない") {
+          text += `・1部 tea partyのみ\n`;
           totalAmount += 3000;  // 追加金額
-        }
-      }
 
+          if (photo2 === "参加する") {
+            text += `・2部 photo party: 参加する\n`;
+            text += `・プランG\n`;
+            totalAmount += 3000;  // 追加金額
+        }else if (photo2 === "参加しない") {
+          text += `・2部 tea partyのみ\n`;
+          text += `・プランE\n`;
+
+      }
+    }
+    }
       text += `\n合計金額: ¥${totalAmount}\n`;
       text += `\nこの内容をコピーして、お問い合わせフォームに貼り付けてください。`;
 
